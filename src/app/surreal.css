@@ -1,0 +1,750 @@
+/* =====================================================================
+   Hub do Bratan — estilos exclusivos da página inicial (/).
+   Modo claro, no bege-creme do Linktree dele: cards brancos, texto
+   chocolate e caramelo nos destaques. Tudo fica sob .surreal.
+   ===================================================================== */
+
+.surreal {
+  --s-bg: #f6eee4;
+  --s-caramel: #c8692e;
+  --s-caramel-text: #a9531f; /* caramelo escurecido para texto pequeno */
+  --s-amber: #e39a5a;
+  --s-chocolate: #3a2216;
+  --s-strong: #2a1a12;
+  --s-body: #5c4535;
+  --s-soft: #75604f;
+  --s-faint: #9a8573;
+  --s-card: rgba(255, 255, 255, 0.82);
+  --s-line: rgba(58, 34, 22, 0.09);
+
+  position: relative;
+  min-height: 100svh;
+  width: 100%;
+  background: var(--s-bg);
+  color: var(--s-strong);
+}
+
+.surreal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 70% at 50% 0%, #fbf5ec 0%, #f6eee4 45%, #efe3d4 100%);
+}
+
+/* Escurece a base para o conteúdo não competir com a poeira do canvas */
+.surreal-fade {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  height: 22vh;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(239, 227, 212, 0.9), transparent);
+}
+
+.surreal-main {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 460px;
+  margin-inline: auto;
+  padding: 36px 16px 40px;
+}
+
+.surreal a:focus-visible {
+  outline: 2px solid var(--s-caramel);
+  outline-offset: 3px;
+}
+
+/* ---------- Entrada escalonada ---------- */
+
+@keyframes surreal-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.surreal-enter {
+  opacity: 0;
+  animation: surreal-in 900ms cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+/* ---------- Topo ---------- */
+
+.surreal-handle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid var(--s-line);
+  box-shadow: 0 6px 18px -8px rgba(58, 34, 22, 0.35);
+  backdrop-filter: blur(10px);
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: 0.3px;
+  color: var(--s-chocolate);
+}
+
+.surreal-handle svg {
+  color: var(--s-caramel);
+}
+
+/* ---------- Foto do topo ---------- */
+
+.surreal-hero {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 66svh;
+  max-width: 460px;
+  margin-inline: auto;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+  /* a foto se dissolve no creme: nenhuma borda aparece atrás dos cards */
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 96%);
+  mask-image: linear-gradient(to bottom, #000 62%, transparent 96%);
+}
+
+.surreal-hero img {
+  object-fit: cover;
+  object-position: 50% 30%;
+}
+
+.surreal-hero::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 120px;
+  z-index: 1;
+  background: linear-gradient(to bottom, rgba(246, 238, 228, 0.5), transparent);
+}
+
+/* funde a base da foto no fundo chocolate, atrás do nome */
+.surreal-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    #f6eee4 14%,
+    rgba(246, 238, 228, 0.75) 38%,
+    rgba(246, 238, 228, 0) 74%
+  );
+}
+
+.surreal-hero-spacer {
+  height: clamp(170px, 32svh, 300px);
+}
+
+@media (min-width: 520px) {
+  .surreal-hero {
+    top: 16px;
+    height: calc(66svh - 16px);
+    border-radius: 28px;
+  }
+}
+
+/* ---------- Nome e bio ---------- */
+
+.surreal-label {
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 7px;
+  text-transform: uppercase;
+  color: var(--s-caramel-text);
+  padding-left: 7px; /* compensa o tracking para centralizar */
+}
+
+.surreal-name {
+  margin-top: 2px;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: clamp(76px, 24vw, 108px);
+  line-height: 1;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 0.04em 0.08em;
+  background: linear-gradient(
+    100deg,
+    #3a2216 0%,
+    #7a3f1d 18%,
+    #c8692e 32%,
+    #e9a466 40%,
+    #7a3f1d 52%,
+    #3a2216 66%,
+    #c8692e 84%,
+    #3a2216 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 6px 14px rgba(58, 34, 22, 0.18));
+}
+
+.surreal-desc {
+  margin-top: 10px;
+  max-width: 330px;
+  text-align: center;
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--s-body);
+}
+
+/* ---------- Cards ---------- */
+
+.surreal-cards {
+  width: 100%;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  perspective: 1000px;
+}
+
+/* Estilo dos cards do Ramon: foto grande ocupando o card, título em caixa
+   alta, etiqueta e botão. Transform (entrada, flutuação, tilt) vem do JS;
+   o "aperto" usa a propriedade scale para não brigar com ele. */
+.surreal-card {
+  --bgc: 255, 250, 244; /* cor do card, usada pelo véu */
+  position: relative;
+  display: flex;
+  align-items: stretch;
+  min-height: 176px;
+  border-radius: 26px;
+  overflow: hidden;
+  isolation: isolate;
+  text-decoration: none;
+  transform-style: preserve-3d;
+  will-change: transform;
+  -webkit-tap-highlight-color: transparent;
+  transition: scale 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.surreal-card:active {
+  scale: 0.975;
+}
+
+.surreal-card--normal {
+  background: rgb(var(--bgc));
+  border: 1px solid var(--s-line);
+  box-shadow: 0 18px 40px -26px rgba(58, 34, 22, 0.55);
+}
+
+.surreal-card--hero {
+  --bgc: 42, 24, 16;
+  background: rgb(var(--bgc));
+  border: 1px solid rgba(227, 154, 90, 0.55);
+}
+
+/* Foto grande à direita. Anda contra o ponteiro (parallax) e dá zoom no foco */
+.surreal-card-photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 60%;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.surreal-card-photo img {
+  object-fit: cover;
+  transform: translate3d(calc(var(--mx, 0) * -18px), calc(var(--my, 0) * -14px), 0)
+    scale(var(--zoom, 1.06));
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Véu: funde a foto na cor do card, deixando o texto legível à esquerda */
+.surreal-card-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgb(var(--bgc)) 40%,
+    rgba(var(--bgc), 0.82) 52%,
+    rgba(var(--bgc), 0.25) 70%,
+    rgba(var(--bgc), 0) 86%
+  );
+}
+
+.surreal-spot {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(
+    260px circle at var(--spx, 70%) var(--spy, 40%),
+    rgba(227, 154, 90, 0.2),
+    transparent 60%
+  );
+}
+
+/* Reflexo: em loop no destaque, e uma passada no hover/foco nos outros */
+.surreal-glint {
+  position: absolute;
+  top: -50%;
+  left: -120px;
+  height: 200%;
+  width: 90px;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  transform: skewX(-18deg);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+}
+
+.surreal-glint--loop {
+  background: linear-gradient(90deg, transparent, rgba(255, 228, 196, 0.22), transparent);
+  animation: surreal-glint 5s linear infinite;
+}
+
+@keyframes surreal-glint {
+  0% {
+    left: -120px;
+    opacity: 0;
+  }
+  3% {
+    opacity: 1;
+  }
+  28% {
+    left: 100%;
+    opacity: 1;
+  }
+  31% {
+    left: 100%;
+    opacity: 0;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
+}
+
+@keyframes surreal-glint-once {
+  0% {
+    left: -120px;
+    opacity: 1;
+  }
+  100% {
+    left: 110%;
+    opacity: 1;
+  }
+}
+
+/* Número grande vazado sobre a foto */
+.surreal-num {
+  position: absolute;
+  right: 14px;
+  bottom: -16px;
+  z-index: 3;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: 92px;
+  line-height: 1;
+  letter-spacing: 2px;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.95);
+  filter: drop-shadow(0 2px 8px rgba(42, 24, 16, 0.45));
+  pointer-events: none;
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform: translateY(6px);
+}
+
+/* Onda do toque/clique */
+.surreal-ripple {
+  position: absolute;
+  z-index: 4;
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: rgba(200, 105, 46, 0.35);
+  animation: surreal-ripple 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.surreal-card--hero .surreal-ripple {
+  background: rgba(243, 201, 139, 0.4);
+}
+
+@keyframes surreal-ripple {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(26);
+    opacity: 0;
+  }
+}
+
+.surreal-card-body {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 64%;
+  padding: 20px 0 20px 20px;
+}
+
+.surreal-card-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+}
+
+.surreal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.surreal-badge--normal {
+  background: rgba(200, 105, 46, 0.12);
+  color: var(--s-caramel-text);
+}
+
+.surreal-badge--hero {
+  background: linear-gradient(100deg, #e39a5a, #f3c98b);
+  color: #2a1408;
+}
+
+.surreal-extra {
+  font-family: var(--font-hand), cursive;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+  color: var(--s-caramel);
+}
+
+.surreal-card--hero .surreal-extra {
+  color: #f3c98b;
+}
+
+.surreal-card-title {
+  margin-top: 10px;
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.15;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--s-strong);
+}
+
+.surreal-card--hero .surreal-card-title {
+  color: #fff4e6;
+}
+
+.surreal-card-desc {
+  margin-top: 6px;
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--s-soft);
+}
+
+.surreal-card--hero .surreal-card-desc {
+  color: #d8bfa6;
+}
+
+/* Botão de ação: a seta corre e o fundo enche no hover/foco */
+.surreal-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 7px 7px 7px 14px;
+  border-radius: 999px;
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    box-shadow 0.35s ease,
+    padding 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.surreal-cta-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.surreal-cta--normal {
+  background: rgba(58, 34, 22, 0.06);
+  color: var(--s-chocolate);
+}
+
+.surreal-cta--normal .surreal-cta-arrow {
+  background: var(--s-chocolate);
+  color: #fff;
+}
+
+.surreal-cta--hero {
+  background: linear-gradient(100deg, #e39a5a, #f3c98b);
+  color: #2a1408;
+  box-shadow: 0 6px 18px -6px rgba(227, 154, 90, 0.7);
+}
+
+.surreal-cta--hero .surreal-cta-arrow {
+  background: #2a1408;
+  color: #f3c98b;
+}
+
+/* ---- Estado ativo: hover no desktop, card no centro da tela no celular ---- */
+
+.surreal-card.is-focus {
+  --zoom: 1.14;
+}
+
+.surreal-card.is-focus .surreal-spot {
+  opacity: 1;
+}
+
+.surreal-card.is-focus .surreal-glint:not(.surreal-glint--loop) {
+  animation: surreal-glint-once 0.9s ease-out forwards;
+}
+
+.surreal-card.is-focus .surreal-num {
+  transform: translateY(-4px);
+}
+
+.surreal-card.is-focus .surreal-cta {
+  padding-left: 18px;
+}
+
+.surreal-card.is-focus .surreal-cta-arrow {
+  transform: translateX(3px) rotate(-45deg);
+}
+
+.surreal-card--normal.is-focus .surreal-cta {
+  background: var(--s-chocolate);
+  color: #fff;
+}
+
+.surreal-card--normal.is-focus .surreal-cta-arrow {
+  background: var(--s-caramel);
+}
+
+@media (hover: hover) {
+  .surreal-card:hover {
+    --zoom: 1.14;
+  }
+
+  .surreal-card:hover .surreal-spot {
+    opacity: 1;
+  }
+
+  .surreal-card:hover .surreal-glint:not(.surreal-glint--loop) {
+    animation: surreal-glint-once 0.9s ease-out forwards;
+  }
+
+  .surreal-card:hover .surreal-num {
+    transform: translateY(-4px);
+  }
+
+  .surreal-card:hover .surreal-cta {
+    padding-left: 18px;
+  }
+
+  .surreal-card:hover .surreal-cta-arrow {
+    transform: translateX(3px) rotate(-45deg);
+  }
+
+  .surreal-card--normal:hover .surreal-cta {
+    background: var(--s-chocolate);
+    color: #fff;
+  }
+
+  .surreal-card--normal:hover .surreal-cta-arrow {
+    background: var(--s-caramel);
+  }
+}
+
+/* telas estreitas: o texto ganha um pouco mais de espaço */
+@media (max-width: 380px) {
+  .surreal-card-body {
+    width: 70%;
+    padding-left: 16px;
+  }
+
+  .surreal-card-title {
+    font-size: 16px;
+  }
+
+  .surreal-num {
+    font-size: 76px;
+  }
+}
+
+/* ---------- Rodapé ---------- */
+
+.surreal-divider {
+  width: 110px;
+  height: 1px;
+  margin-top: 44px;
+  background: linear-gradient(90deg, transparent, rgba(200, 105, 46, 0.6), transparent);
+}
+
+.surreal-socials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.surreal-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--s-line);
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: #fff;
+  box-shadow: 0 6px 16px -10px rgba(58, 34, 22, 0.4);
+  font-family: var(--font-outfit), sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--s-chocolate);
+  text-decoration: none;
+  transition:
+    border-color 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease,
+    transform 0.3s ease;
+}
+
+.surreal-pill:hover {
+  border-color: var(--s-chocolate);
+  background: var(--s-chocolate);
+  color: #fff;
+  box-shadow: 0 10px 22px -10px rgba(58, 34, 22, 0.6);
+  transform: translateY(-2px);
+}
+
+.surreal-signature {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 28px;
+  font-family: var(--font-hand), cursive;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--s-caramel);
+}
+
+.surreal-signature svg {
+  width: 18px;
+  height: 18px;
+  color: var(--s-chocolate);
+}
+
+.surreal-copy {
+  margin-top: 8px;
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 12.5px;
+  color: var(--s-faint);
+}
+
+/* Crédito de quem fez o site */
+.surreal-credit {
+  margin-top: 14px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-family: var(--font-outfit), sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.3px;
+  color: var(--s-faint);
+  text-decoration: none;
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.surreal-credit strong {
+  font-weight: 600;
+  color: var(--s-chocolate);
+}
+
+.surreal-credit:hover {
+  color: var(--s-body);
+  background: rgba(58, 34, 22, 0.06);
+}
+
+/* telas bem estreitas: pills só com ícone */
+@media (max-width: 359px) {
+  .surreal-pill-text {
+    display: none;
+  }
+}
+
+/* ---------- Movimento reduzido ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .surreal-enter {
+    opacity: 1;
+    animation: none;
+  }
+
+  .surreal-glint {
+    display: none;
+  }
+
+  .surreal-card-photo img,
+  .surreal-num,
+  .surreal-cta-arrow {
+    transition: none;
+  }
+
+  .surreal-card .surreal-glint:not(.surreal-glint--loop),
+  .surreal-ripple {
+    display: none;
+  }
+}

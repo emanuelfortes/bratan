@@ -1,0 +1,117 @@
+@import "tailwindcss";
+@import "./surreal.css";
+
+/* Paleta tirada da logo e da fachada: preto, off-white e dourado */
+:root {
+  --bg: #0a0a0a;
+  --bg-soft: #121212;
+  --bg-card: #171717;
+  --line: #262626;
+  --fg: #f3efe6;
+  --muted: #a8a49b;
+  --gold: #d4af37;
+  --gold-light: #f1d97a;
+  --gold-dark: #9c7c1e;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-soft: var(--bg-soft);
+  --color-bg-card: var(--bg-card);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --font-sans: var(--font-poppins);
+  --font-script: var(--font-script);
+  --font-label: var(--font-label);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-poppins), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--gold);
+  color: #0a0a0a;
+}
+
+/* Texto dourado com brilho metálico, como a placa da barbearia */
+.gold-text {
+  background: linear-gradient(
+    100deg,
+    var(--gold-dark) 0%,
+    var(--gold-light) 40%,
+    var(--gold) 60%,
+    var(--gold-dark) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* acima das fotos de fundo para a textura não cortar na borda do painel */
+  z-index: 1;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Entrada dos blocos conforme entram na tela — ver components/Reveal.tsx */
+[data-reveal] {
+  opacity: 0;
+  transition:
+    opacity 800ms cubic-bezier(0.215, 0.61, 0.355, 1),
+    transform 800ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+[data-reveal="fade-up"] {
+  transform: translateY(28px);
+}
+
+[data-reveal="fade-down"] {
+  transform: translateY(-24px);
+}
+
+[data-reveal="fade-right"] {
+  transform: translateX(-32px);
+}
+
+[data-reveal="fade-left"] {
+  transform: translateX(32px);
+}
+
+[data-reveal="zoom-in"] {
+  transform: scale(0.92);
+}
+
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
