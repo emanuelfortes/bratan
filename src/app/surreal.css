@@ -149,7 +149,12 @@
 }
 
 .surreal-hero-spacer {
-  height: clamp(170px, 32svh, 300px);
+  /* + ~38px que o @ ocupava no topo antes de descer pra baixo da bio */
+  height: clamp(208px, calc(32svh + 38px), 338px);
+}
+
+.surreal-top {
+  margin-top: 16px;
 }
 
 @media (min-width: 520px) {
@@ -220,7 +225,7 @@
   perspective: 1000px;
 }
 
-/* Estilo dos cards do Ramon: foto grande ocupando o card, título em caixa
+/* Estilo dos cards: foto grande ocupando o card, título em caixa
    alta, etiqueta e botão. Transform (entrada, flutuação, tilt) vem do JS;
    o "aperto" usa a propriedade scale para não brigar com ele. */
 .surreal-card {

@@ -9,7 +9,7 @@ const PASSO = 90; // ms entre os itens da entrada
 const DURACAO = 900; // ms de cada item
 const easeOutCubic = (p: number) => 1 - (1 - p) ** 3;
 
-/** Grupos da entrada do topo: 0 @ · 2 nome+bio. Cards entram ao aparecer na tela. */
+/** Grupos da entrada do topo: 2 nome+bio+@. Cards entram ao aparecer na tela. */
 const atraso = (grupo: number) => ({ "--d": `${grupo * PASSO}ms` } as CSSProperties);
 
 /** Estado de animação de cada card, guardado fora do React (muda a cada frame). */
@@ -209,14 +209,6 @@ export default function SurrealHub() {
       <div className="surreal-fade" aria-hidden="true" />
 
       <main className="surreal-main">
-        {/* Topo: @ do perfil */}
-        <div className="surreal-top surreal-enter" style={atraso(0)}>
-          <span className="surreal-handle">
-            <PataIcon />
-            {perfil.usuario}
-          </span>
-        </div>
-
         {/* Espaço da foto que sangra no topo */}
         <div className="surreal-hero-spacer" aria-hidden="true" />
 
@@ -227,6 +219,14 @@ export default function SurrealHub() {
             {perfil.nome}
           </h1>
           <p className="surreal-desc">{perfil.bio}</p>
+        </div>
+
+        {/* @ do perfil, abaixo da bio (no topo ficava em cima da cabeça do Bratan) */}
+        <div className="surreal-top surreal-enter" style={atraso(2)}>
+          <span className="surreal-handle">
+            <PataIcon />
+            {perfil.usuario}
+          </span>
         </div>
 
         {/* Cards */}

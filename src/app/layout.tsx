@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import { siteUrl } from "@/data/site";
 import "./globals.css";
 
-// Título: script parecido com o lettering "Ramon Silva" da logo
+// Script decorativo
 const greatVibes = localFont({
   src: "../fonts/great-vibes-latin-400-normal.woff2",
   variable: "--font-script",
@@ -24,7 +24,7 @@ const poppins = localFont({
   display: "swap",
 });
 
-// Rótulos em caixa alta, parecido com o "BARBEIRO" da logo
+// Rótulos em caixa alta
 const josefin = localFont({
   src: [
     { path: "../fonts/josefin-sans-latin-300-normal.woff2", weight: "300" },
